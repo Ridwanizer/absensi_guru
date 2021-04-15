@@ -17,12 +17,12 @@ class Absensi_model extends CI_Model
     public function absen_harian_user($id_user)
     {
         $today = date('Y-m-d');
-        $latitude = onGeoSuccess('event.coords.latitude');
-        $longitude = onGeoSuccess('event.coords.longitude');
+        // $latitude = onGeoSuccess('event.coords.latitude');
+        // $longitude = onGeoSuccess('event.coords.longitude');
         $this->db->where('tgl', $today);
         $this->db->where('id_user', $id_user);
-        $this->db->where('latitude', $latitude);
-        $this->db->where('longitude', $longitude);
+        // $this->db->where('latitude', $latitude);
+        // $this->db->where('longitude', $longitude);
         $data = $this->db->get('absensi');
         return $data;
     }

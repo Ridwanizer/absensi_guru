@@ -54,8 +54,8 @@ class Absensi extends CI_Controller
         $data = [
             'tgl' => date('Y-m-d'),
             'waktu' => date('H:i:s'),
-            'latitude' => onGeoSuccess('event.coords.latitude'),
-            'longitude' => onGeoSuccess('event.coords.longitude'),
+            // 'latitude' => onGeoSuccess('event.coords.latitude'),
+            // 'longitude' => onGeoSuccess('event.coords.longitude'),
             'keterangan' => $keterangan,
             'id_user' => $this->session->id_user
         ];
