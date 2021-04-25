@@ -54,8 +54,7 @@ class Absensi extends CI_Controller
         $data = [
             'tgl' => date('Y-m-d'),
             'waktu' => date('H:i:s'),
-            // 'latitude' => onGeoSuccess('event.coords.latitude'),
-            // 'longitude' => onGeoSuccess('event.coords.longitude'),
+            // 'lokasi'    => $this->input->post('lokasi'),
             'keterangan' => $keterangan,
             'id_user' => $this->session->id_user
         ];
@@ -74,6 +73,54 @@ class Absensi extends CI_Controller
             ]);
         }
         redirect('absensi/detail_absensi');
+    }
+
+    public function absen_new()
+    {
+        $absen_harian = $this->absensi->absen_harian_user($this->session->id_user)->num_rows();
+        $this->form_validation->set_rules('lokasi', 'Lokasi tidak diketahui !', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('response', [
+                'status' => 'error',
+                'message' => 'Lokasi tidak diketahui !'
+            ]);
+			redirect('absensi/detail_absensi');
+		}elseif($absen_harian == 0){
+            // $keterangan = 'Masuk';
+			$data = [
+                'tgl' => date('Y-m-d'),
+                'waktu' => date('H:i:s'),
+                'lokasi'    => $this->input->post('lokasi'),
+                'keterangan' => 'Masuk',
+                'id_user' => $this->session->id_user
+            ];
+            $this->absensi->insert_data($data);
+            $this->session->set_flashdata('response', [
+                'status' => 'success',
+                'message' => 'Absensi berhasil dicatat'
+            ]);
+            redirect('absensi/detail_absensi');
+		}elseif($absen_harian == 1){
+            // $keterangan = 'Pulang';
+			$data = [
+                'tgl' => date('Y-m-d'),
+                'waktu' => date('H:i:s'),
+                'lokasi'    => $this->input->post('lokasi'),
+                'keterangan' => 'Pulang',
+                'id_user' => $this->session->id_user
+            ];
+            $this->absensi->insert_data($data);
+            $this->session->set_flashdata('response', [
+                'status' => 'success',
+                'message' => 'Absensi berhasil dicatat'
+            ]);
+            redirect('absensi/detail_absensi');
+		}
+    }
+
+    public function absen_get()
+    {
+        return $this->template->load('template', 'absensi/absen_new');
     }
 
     public function export_pdf()
@@ -265,7 +312,8 @@ class Absensi extends CI_Controller
         $tahun = @$this->input->get('tahun') ? $this->input->get('tahun') : date('Y');
         
         $data['karyawan'] = $this->karyawan->find($id_user);
-        $data['absen'] = $this->absensi->get_absen($id_user, $bulan, $tahun);
+        $data['absen'] = $this->absensi->get_absen($id_user, $bulan, $tahun)->result_array();
+        $data['absen2'] = $this->absensi->get_absen($id_user, $bulan, $tahun)->row();
         $data['jam_kerja'] = (array) $this->jam->get_all();
         $data['all_bulan'] = bulan();
         $data['bulan'] = $bulan;

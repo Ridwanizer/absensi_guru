@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>           
             <div class="card-body">
                 <h4 class="card-title mb-4">Absen Bulan : <?= bulan($bulan) . ' ' . $tahun ?></h4>
                 <table class="table table-striped table-bordered">
@@ -81,6 +81,7 @@
                                     <td><?= $h['hari'] . ', ' . $h['tgl'] ?></td>
                                     <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_masuk'], 'masuk') ?></td>
                                     <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_jam(@$absen_harian['jam_pulang'], 'pulang') ?></td>
+                                    <td><?= is_weekend($h['tgl']) ? 'Libur Akhir Pekan' : check_lokasi(@$absen_harian['lokasi'], 'masuk') ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>

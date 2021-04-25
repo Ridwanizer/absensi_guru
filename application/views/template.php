@@ -150,6 +150,8 @@
 </body>
 
 <!--   Core JS Files   -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/core/jquery.min.js') ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/core/popper.min.js') ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/core/bootstrap.bundle.min.js') ?>" type="text/javascript"></script>

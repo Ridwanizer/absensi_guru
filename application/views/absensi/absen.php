@@ -20,25 +20,20 @@
                                 <td><i class="fa fa-3x fa-<?= ($absen < 2) ? "warning text-warning" : "check-circle-o text-success" ?>"></i></td>
                                 <td><?= tgl_hari(date('d-m-Y')) ?></td>
                                 <td>
-                                    <a href="<?= base_url('absensi/absen/masuk') ?>" value="Get Location" onclick="getLocationConstant()" class="btn btn-primary btn-sm btn-fill"<?= ($absen == 1) ? 'disabled style="cursor:not-allowed"' : '' ?>>Absen Masuk</a>
+                                    <a href="<?= base_url('absensi/absen_get') ?>" value="Get Location" class="btn btn-primary btn-sm btn-fill"<?= ($absen == 1) ? 'disabled style="cursor:not-allowed"' : '' ?>>Absen Masuk</a>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('absensi/absen/pulang') ?>" class="btn btn-success btn-sm btn-fill"<?= ($absen !== 1 || $absen == 2) ? 'disabled style="cursor:not-allowed"' : '' ?>>Absen Pulang</a>
+                                    <a href="<?= base_url('absensi/absen_get') ?>" class="btn btn-success btn-sm btn-fill"<?= ($absen !== 1 || $absen == 2) ? 'disabled style="cursor:not-allowed"' : '' ?>>Absen Pulang</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
                     </tbody>
                 </table>
-                <label for="Latitude">Latitude</label><br>
-                     <input class="multi-lainnya" type="text" id="Latitude" name="Latitude" value="" readonly><br>
-                     
-                     
-                     <label for="Longitude">Longitude</label><br>
-                     <input class="multi-lainnya" type="text" id="Longitude" name="Longitude" value="" readonly><br><br>
             </div>
         </div>
     </div>
 </div>
+
 <script>
     function showPosition() {
         navigator.geolocation.getCurrentPosition(showMap);
@@ -74,17 +69,17 @@
 </script>
 
  <script type="text/javascript"> 
- function getLocationConstant()
-{
+//  function getLocationConstant()
+// {
     if(navigator.geolocation)
     {
-        navigator.geolocation.getCurrentPosition(onGeoSuccess,onGeoError);  
+        navigator.geolocation.getCurrentPosition(onGeoSuccess,onGeoError);
     } else {
     document.getElementById("Latitude").value =  "not support"; 
     document.getElementById("Longitude").value = "not support";
     }
     
-}
+// }
 
 // If we have a successful location update
 function onGeoSuccess(event){
@@ -169,5 +164,6 @@ var address = response["results"][0]["formatted_address"];
 return address;
 
 }
- </script>
+
+
  

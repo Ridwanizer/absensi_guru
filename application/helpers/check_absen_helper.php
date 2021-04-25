@@ -63,6 +63,53 @@ function check_jam($jam, $status, $raw = false)
     }
 }
 
+function check_lokasi($jam, $status, $raw = false)
+{
+    if ($jam) {
+        $status = ucfirst($status);
+        $CI =& get_instance();
+        $CI->load->model('Jam_model', 'jam');
+        $jam_kerja = $CI->jam->db->where('keterangan', $status)->get('jam')->row();
+
+        if ($status == 'Masuk' && $jam > $jam_kerja->finish) {
+            if ($raw) {
+                return [
+                    'status' => 'telat',
+                    'text' => $jam
+                ];
+            } else {
+                return $jam;
+            }
+        } elseif ($status == 'Pulang' && $jam > $jam_kerja->finish) {
+            if ($raw) {
+                return [
+                    'status' => 'lembur',
+                    'text' => $jam
+                ];
+            } else {
+                return $jam;
+            }
+        } else {
+            if ($raw) {
+                return [
+                    'status' => 'normal',
+                    'text' => $jam
+                ];
+            } else {
+                return $jam;
+            }
+        }
+    } else {
+        if ($raw) {
+            return [
+                'status' => 'normal',
+                'text' => ''
+            ];
+        }
+        return '';
+    }
+}
+
 function is_weekend($tgl = false)
 {
     $tgl = @$tgl ? $tgl : date('d-m-Y');
